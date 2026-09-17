@@ -216,3 +216,16 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Reflex
+.web/
+.states/
+assets/external/
+*.egg-info/
+
+# IDEs
+.idea/
+.vscode/
+
+# Build outputs
+/assets/

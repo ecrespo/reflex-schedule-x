@@ -1,0 +1,74 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "reflex-schedule-x"
+version = "0.1.0"
+description = "Schedule-X event calendar for Reflex: day, week, month and list views, plugins, custom components, date and time pickers."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.10"
+authors = [{ name = "Ernesto Crespo", email = "ecrespo@gmail.com" }]
+keywords = [
+    "reflex",
+    "reflex-custom-components",
+    "schedule-x",
+    "calendar",
+    "event-calendar",
+    "scheduler",
+    "date-picker",
+    "time-picker",
+]
+dependencies = ["reflex>=0.9.11"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Framework :: Reflex",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: User Interfaces",
+]
+
+[project.urls]
+Homepage = "https://github.com/ecrespo/reflex-schedule-x"
+Source = "https://github.com/ecrespo/reflex-schedule-x"
+Issues = "https://github.com/ecrespo/reflex-schedule-x/issues"
+Changelog = "https://github.com/ecrespo/reflex-schedule-x/blob/main/CHANGELOG.md"
+"Schedule-X" = "https://schedule-x.dev"
+
+[project.optional-dependencies]
+dev = ["build", "twine", "pytest>=8", "pytest-cov>=5", "ruff>=0.6"]
+
+[tool.setuptools.packages.find]
+where = ["custom_components"]
+
+[tool.setuptools.package-data]
+reflex_schedule_x = ["*.jsx", "*.pyi", "py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.coverage.run]
+source = ["reflex_schedule_x"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+extend-exclude = ["*.pyi", "**/.web", "**/.states"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "C4", "PT", "RUF"]
+# E501: the formatter owns line length. RUF012: Reflex state vars are declared as mutable class attributes.
+# RUF001: en dashes are intentional in UI strings.
+ignore = ["E501", "RUF012", "RUF001"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["reflex_schedule_x", "schedule_x_demo"]
+
+[tool.bandit]
+exclude_dirs = ["tests", "schedule_x_demo", ".venv"]
