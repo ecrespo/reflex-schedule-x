@@ -30,6 +30,8 @@ jobs:
         with:
           python-version: "3.12"
       - run: uv sync --locked --extra dev
+      - name: Validate pyproject.toml (schema and trove classifiers)
+        run: uvx --from "validate-pyproject[all]" validate-pyproject pyproject.toml
       - name: Tag matches pyproject version
         env:
           TAG: ${{ github.ref_name }}
