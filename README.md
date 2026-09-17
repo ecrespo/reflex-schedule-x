@@ -237,6 +237,21 @@ Branches: work happens on `develop`; `main` only receives pull requests from `de
 Python 3.10–3.13, build, stub freshness, demo bundle) and `Security` (CodeQL, Bandit, pip-audit, Gitleaks, dependency
 review) workflows must pass before merging.
 
+### Releasing
+
+1. Bump `version` in `pyproject.toml`, update `CHANGELOG.md`, and merge `develop` into `main`.
+2. Tag `main` and push the tag:
+
+   ```bash
+   git checkout main && git pull
+   git tag -a v0.1.0 -m "v0.1.0"
+   git push origin v0.1.0
+   ```
+
+The `Release` workflow checks that the tag matches the version, runs the tests, builds the sdist and wheel, publishes
+them to PyPI with Trusted Publishing (no API token) from the `pypi` environment, and creates the GitHub release with
+the files attached.
+
 ## License
 
 MIT © Ernesto Crespo. Schedule-X is MIT licensed, © Tom Österlund.
