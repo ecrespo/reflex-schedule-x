@@ -5,10 +5,6 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
-### Added
-
-- Release workflow: PyPI Trusted Publishing and GitHub release on `v*` tags.
-
 ## [0.1.0] - 2026-09-17
 
 ### Added
