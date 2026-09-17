@@ -30,6 +30,8 @@ jobs:
         with:
           python-version: "3.12"
           enable-cache: true
+      - name: Validate pyproject.toml (schema and trove classifiers)
+        run: uvx --from "validate-pyproject[all]" validate-pyproject pyproject.toml
       - name: Check the lockfile is up to date
         run: uv lock --check
       - run: uv sync --locked --extra dev
