@@ -40,7 +40,13 @@ from reflex_schedule_x import calendar_type, schedule_x
 
 class State(rx.State):
     events: list[dict] = [
-        {"id": "1", "title": "Coffee with John", "start": "2026-09-17 10:05", "end": "2026-09-17 10:35", "calendarId": "work"},
+        {
+            "id": "1",
+            "title": "Coffee with John",
+            "start": "2026-09-17 10:05",
+            "end": "2026-09-17 10:35",
+            "calendarId": "work",
+        },
         {"id": "2", "title": "Ski trip", "start": "2026-09-19", "end": "2026-09-21"},
     ]
     selected: dict = {}
