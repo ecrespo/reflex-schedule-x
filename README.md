@@ -230,9 +230,12 @@ uv run reflex run
 uv sync --extra dev
 uv run ruff check . && uv run ruff format --check .
 uv run pytest --cov
-uv run python -m reflex_base.utils.pyi_generator custom_components/reflex_schedule_x   # regenerate .pyi stubs
-uv build                                                                          # sdist + wheel
+uv run --python 3.12 python -m reflex_base.utils.pyi_generator custom_components/reflex_schedule_x   # regenerate .pyi stubs
+uv build                                                                                        # sdist + wheel
 ```
+
+Regenerate the stubs with Python 3.12, as CI does: Python 3.13 strips docstring indentation, so stubs generated with it
+fail the CI freshness check.
 
 Branches: work happens on `develop`; `main` only receives pull requests from `develop`. The `Quality` (ruff, pytest on
 Python 3.11–3.13, build, stub freshness, demo bundle on Node 24) and `Security` (CodeQL, Bandit, pip-audit, Gitleaks, dependency

@@ -237,7 +237,8 @@ class ScheduleX(NoSSRComponent, MemoizationLeaf):
             **props: Calendar props.
 
         Returns:
-            The component."""
+            The component.
+        """
         ...
 
 class ScheduleXSlot(NoSSRComponent):
@@ -303,7 +304,8 @@ class ScheduleXSlot(NoSSRComponent):
             The component.
 
         Raises:
-            ValueError: If the slot name is missing or unknown."""
+            ValueError: If the slot name is missing or unknown.
+        """
         ...
 
 class ScheduleXField(NoSSRComponent):
@@ -372,7 +374,8 @@ class ScheduleXField(NoSSRComponent):
             **props: Component props.
 
         Returns:
-            The component."""
+            The component.
+        """
         ...
 
 class ScheduleXShow(NoSSRComponent):
@@ -437,7 +440,8 @@ class ScheduleXShow(NoSSRComponent):
             **props: Component props.
 
         Returns:
-            The component."""
+            The component.
+        """
         ...
 
 class ScheduleXEventCard(NoSSRComponent):
@@ -500,7 +504,8 @@ class ScheduleXEventCard(NoSSRComponent):
             **props: The props of the component.
 
         Returns:
-            The component."""
+            The component.
+        """
         ...
 
 class ScheduleXAction(NoSSRComponent):
@@ -567,7 +572,8 @@ class ScheduleXAction(NoSSRComponent):
             **props: The props of the component.
 
         Returns:
-            The component."""
+            The component.
+        """
         ...
 
 class _ThemedPicker(NoSSRComponent):
@@ -631,7 +637,8 @@ class _ThemedPicker(NoSSRComponent):
             **props: The props of the component.
 
         Returns:
-            The component."""
+            The component.
+        """
         ...
 
 class ScheduleXDatePicker(_ThemedPicker):
@@ -722,7 +729,8 @@ class ScheduleXDatePicker(_ThemedPicker):
             **props: The props of the component.
 
         Returns:
-            The component."""
+            The component.
+        """
         ...
 
 class ScheduleXTimePicker(_ThemedPicker):
@@ -802,7 +810,8 @@ class ScheduleXTimePicker(_ThemedPicker):
             **props: The props of the component.
 
         Returns:
-            The component."""
+            The component.
+        """
         ...
 
 schedule_x = ScheduleX.create
