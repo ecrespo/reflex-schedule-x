@@ -16,6 +16,8 @@ concurrency:
 
 env:
   REFLEX_TELEMETRY_ENABLED: "false"
+  # Run every JavaScript action on the Node 24 runtime.
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
   FORCE_COLOR: "1"
 
 jobs:
@@ -46,7 +48,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.10", "3.11", "3.12", "3.13"]
+        python-version: ["3.11", "3.12", "3.13"]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -72,8 +74,11 @@ jobs:
           python-version: "3.12"
           enable-cache: true
       - run: uv sync --locked --extra dev
-      - name: Generate .pyi stubs and build sdist + wheel
-        run: uv run reflex component build
+      - name: Generate .pyi stubs
+        # Reflex 0.10 removed `reflex component build`.
+        run: uv run python -m reflex_base.utils.pyi_generator custom_components/reflex_schedule_x
+      - name: Build sdist + wheel
+        run: uv build
       - name: Type stubs are up to date
         run: git diff --exit-code -- custom_components
       - name: Check distribution metadata
@@ -102,6 +107,9 @@ jobs:
         with:
           python-version: "3.12"
           enable-cache: true
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "24"
       - run: uv sync --locked --extra dev
       - name: Compile and bundle the demo (validates schedule_x.jsx and npm deps)
         working-directory: schedule_x_demo

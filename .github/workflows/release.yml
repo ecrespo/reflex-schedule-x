@@ -1,7 +1,7 @@
 name: Release
 
 # Publishes to PyPI (Trusted Publishing, no tokens) and creates a GitHub release when a version tag is pushed:
-#   git tag -a v0.1.0 -m "v0.1.0" && git push origin v0.1.0
+#   git tag -a v0.2.0 -m "v0.2.0" && git push origin v0.2.0
 # The tag must match `version` in pyproject.toml.
 
 on:
@@ -17,6 +17,8 @@ concurrency:
 
 env:
   REFLEX_TELEMETRY_ENABLED: "false"
+  # Run every JavaScript action on the Node 24 runtime.
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
 
 jobs:
   build:
@@ -43,8 +45,11 @@ jobs:
           fi
       - name: Tests
         run: uv run pytest
-      - name: Generate .pyi stubs and build sdist + wheel
-        run: uv run reflex component build
+      - name: Generate .pyi stubs
+        # Reflex 0.10 removed `reflex component build`.
+        run: uv run python -m reflex_base.utils.pyi_generator custom_components/reflex_schedule_x
+      - name: Build sdist + wheel
+        run: uv build
       - name: Type stubs are up to date
         run: git diff --exit-code -- custom_components
       - name: Check distribution metadata

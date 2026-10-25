@@ -29,7 +29,7 @@ pip install reflex-schedule-x
 uv add reflex-schedule-x
 ```
 
-Requires `reflex>=0.9.11`. The npm packages are installed automatically by Reflex.
+Requires Python 3.11+ and `reflex>=0.10.0`. The npm packages are installed automatically by Reflex.
 
 ## Quick start
 
@@ -230,11 +230,15 @@ uv run reflex run
 uv sync --extra dev
 uv run ruff check . && uv run ruff format --check .
 uv run pytest --cov
-uv run reflex component build   # generates .pyi stubs and builds sdist + wheel
+uv run --python 3.12 python -m reflex_base.utils.pyi_generator custom_components/reflex_schedule_x   # regenerate .pyi stubs
+uv build                                                                                        # sdist + wheel
 ```
 
+Regenerate the stubs with Python 3.12, as CI does: Python 3.13 strips docstring indentation, so stubs generated with it
+fail the CI freshness check.
+
 Branches: work happens on `develop`; `main` only receives pull requests from `develop`. The `Quality` (ruff, pytest on
-Python 3.10–3.13, build, stub freshness, demo bundle) and `Security` (CodeQL, Bandit, pip-audit, Gitleaks, dependency
+Python 3.11–3.13, build, stub freshness, demo bundle on Node 24) and `Security` (CodeQL, Bandit, pip-audit, Gitleaks, dependency
 review) workflows must pass before merging.
 
 ### Releasing
@@ -244,8 +248,8 @@ review) workflows must pass before merging.
 
    ```bash
    git checkout main && git pull
-   git tag -a v0.1.0 -m "v0.1.0"
-   git push origin v0.1.0
+   git tag -a v0.2.0 -m "v0.2.0"
+   git push origin v0.2.0
    ```
 
 The `Release` workflow checks that the tag matches the version, runs the tests, builds the sdist and wheel, publishes
